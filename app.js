@@ -125,7 +125,9 @@ var taskCompleted=function(){
     var listItem=this.parentNode;
     completedTasksHolder.appendChild(listItem);
     bindTaskEvents(listItem, taskIncomplete);
-    listItem.className="task-elem done-list__elem";
+    if (document.querySelector(".button-edit").innerHTML === "Save"){
+      listItem.className="task-elem done-list__elem";
+    }
 }
 
 
@@ -137,7 +139,10 @@ var taskIncomplete=function(){
     var listItem=this.parentNode;
     incompleteTaskHolder.appendChild(listItem);
     bindTaskEvents(listItem,taskCompleted);
-    listItem.className="todo-list__elem task-elem";
+    if (listItem.classList.contains('done-list__elem')){
+      listItem.classlist.remove("done-list__elem");
+      listItem.classlist.add("todo-list__elem task-elem");
+    }
 }
 
 
@@ -158,9 +163,9 @@ addButton.addEventListener("click",ajaxRequest);
 var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
     console.log("bind list item events");
 //select ListItems children
-    var checkBox=taskListItem.querySelector(".task-checkbox");
-    var editButton=taskListItem.querySelector(".button-edit");
-    var deleteButton=taskListItem.querySelector(".button-delete");
+    let checkBox=taskListItem.querySelector(".task-checkbox");
+    let editButton=taskListItem.querySelector(".button-edit");
+    let deleteButton=taskListItem.querySelector(".button-delete");
 
 
     //Bind editTask to edit button.
